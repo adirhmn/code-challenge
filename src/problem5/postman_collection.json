@@ -1,0 +1,227 @@
+{
+  "info": {
+    "_postman_id": "a5d09f7a-8d59-4b6c-8291-76672c83a123",
+    "name": "Problem 5 - Product CRUD API",
+    "description": "Postman Collection for Problem 5 ExpressJS + TypeScript CRUD API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "1. Create Product (Protected)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    var jsonData = pm.response.json();",
+              "    if (jsonData.data && jsonData.data.id) {",
+              "        pm.collectionVariables.set('productId', jsonData.data.id);",
+              "    }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Wireless Mechanical Keyboard RGB\",\n  \"description\": \"Hot-swappable 75% mechanical keyboard with Bluetooth and 2.4GHz\",\n  \"price\": 149.99,\n  \"category\": \"ELECTRONICS\",\n  \"status\": \"ACTIVE\",\n  \"stock\": 25\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. List Products (All Public)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. List Products (With Filters & Pagination)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products?category=ELECTRONICS&minPrice=50&sortBy=price&order=asc&page=1&limit=5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "ELECTRONICS"
+            },
+            {
+              "key": "minPrice",
+              "value": "50"
+            },
+            {
+              "key": "sortBy",
+              "value": "price"
+            },
+            {
+              "key": "order",
+              "value": "asc"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Get Product Details (Public)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "{{productId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Update Product Details (Protected)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 129.99,\n  \"stock\": 50,\n  \"status\": \"ACTIVE\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "{{productId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Delete Product (Protected)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/products/{{productId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "{{productId}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "my-secret-api-key",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

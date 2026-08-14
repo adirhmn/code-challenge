@@ -1,0 +1,42 @@
+{
+  "name": "99tech-code-challenge",
+  "version": "1.0.0",
+  "description": "99Tech Code Challenge - Senior Backend Engineer Solutions",
+  "scripts": {
+    "test:problem4": "npx tsx --test src/problem4/index.test.ts",
+    "benchmark:problem4": "npx tsx src/problem4/benchmark.ts",
+    "problem5:dev": "dotenv -e src/problem5/.env -- npx tsx watch src/problem5/src/server.ts",
+    "problem5:build": "tsc -p src/problem5/tsconfig.json",
+    "problem5:start": "dotenv -e src/problem5/.env -- node src/problem5/dist/server.js",
+    "problem5:db:push": "dotenv -e src/problem5/.env -- prisma db push --schema=src/problem5/prisma/schema.prisma",
+    "problem5:db:seed": "dotenv -e src/problem5/.env -- npx tsx src/problem5/prisma/seed.ts",
+    "problem5:db:reset": "dotenv -e src/problem5/.env -- npx tsx src/problem5/prisma/seed.ts",
+    "problem5:test": "dotenv -e src/problem5/.env -- jest --config=src/problem5/jest.config.json --runInBand",
+    "test": "npm run test:problem4 && npm run problem5:test"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "helmet": "^8.0.0",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.17.6",
+    "@types/supertest": "^6.0.2",
+    "dotenv-cli": "^11.0.0",
+    "jest": "^29.7.0",
+    "pino-pretty": "^13.0.0",
+    "prisma": "^5.22.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
